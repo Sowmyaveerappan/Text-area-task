@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Text-Area Task</title>
+    <style>
+        body{
+            background-color: rgb(236, 202, 213);
+        }
+        .warning {
+            color: red; /* Red text for warnings */
+            font-size: 14px; /* Size of the warning text */
+        }
+
+        .counter {
+            font-size: 14px; /* Size of the counter text */
+            margin-top: 5px; /* Space above the counter */
+            font-size: 1rem;
+        }
+        
+       .container{
+        width: 50%;
+        height: 50%;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        margin:250px;
+        background-color: rgb(126, 170, 236);
+
+       }
+       #myTextarea{
+        background-color: rgb(190, 240, 238);
+        width: 70%;
+        height: 100%;
+       }
+
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <h1 class="heading">Text-Area Task</h1>
+    <!-- A box where you can type text -->
+    <textarea id="myTextarea" rows="4" cols="50" placeholder="Type something..."></textarea>
+
+    <!-- Shows how many characters are left -->
+    <div class="counter">
+        Remaining characters: <span id="remainingChars">200</span>
+    </div>
+    
+
+    <!-- Shows a warning if you type too much -->
+    <div id="warningMessage" class="warning"></div>
+    </div>
+
+    <script>
+        // Maximum characters you can type
+        var maxChars = 200;
+
+        // Get the textarea element
+        var textarea = document.getElementById("myTextarea");
+
+        // Get the area where we show remaining characters
+        var remainingCharsDisplay = document.getElementById("remainingChars");
+
+        // Get the area where we show the warning message
+        var warningMessage = document.getElementById("warningMessage");
+
+        // When you type in the textarea, do this
+        textarea.addEventListener("input", function () {
+            // Count how many characters you have typed
+            var typedChars = textarea.value.length;
+
+            // Calculate how many characters are left
+            var remainingChars = maxChars - typedChars;
+
+            // If you typed more than 200 characters
+            if (remainingChars <= 0) {
+                // Show a warning message
+                warningMessage.textContent = "You have exceed the character limit!";
+                // Cut off any extra characters
+                textarea.value = textarea.value.substring(0, maxChars);
+                // Set remaining characters to 0 since it's the limit
+                remainingChars = 0;
+            } else {
+                // Clear the warning if you're within the limit
+                warningMessage.textContent = "";
+            }
+
+            // Update the number of characters left
+            remainingCharsDisplay.textContent = remainingChars;
+        });
+    </script>
+
+</body>
+
+</html>
